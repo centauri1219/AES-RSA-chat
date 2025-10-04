@@ -1,4 +1,4 @@
-# AES-RSA Chat 🔐
+# AES Chat 🔐
 
 A secure, encrypted chat application that enables private communication between two parties using military-grade AES encryption.
 
