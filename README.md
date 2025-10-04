@@ -1,3 +1,1 @@
-# AES-RSA-chat
-Chat application using AES and RSA based encryption
-Code to be added
+This project implements a secure chat application using AES encryption where two users can exchange encrypted messages over a network. One person runs the server program and waits for connections, while another runs the client to connect via IP and port. Both parties enter a shared encryption key that gets hashed with SHA-256 to create a 256-bit AES key, and all messages are automatically encrypted using AES block cipher (16-byte blocks) before transmission and decrypted upon receipt. The application provides real-time bidirectional communication with message integrity verification using SHA-256 hashes, ensuring that conversations remain private and tamper-proof even over untrusted networks through military-grade AES encryption.
