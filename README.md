@@ -15,6 +15,14 @@ This project implements a secure chat application where two users can exchange e
 - **✅ Integrity Verification**: Visual indicators (☑/☒) show message authenticity
 - **🔑 Pre-shared Key Security**: Both parties must know the same encryption key
 
+## Preview
+When correct key is entered
+<img width="1517" height="331" alt="image" src="https://github.com/user-attachments/assets/57fda044-d908-409f-afdc-3fe3b3b2fd46" />
+
+When incorrect key is entered
+<img width="1498" height="302" alt="image" src="https://github.com/user-attachments/assets/a9424dc4-a058-4a94-8f09-453cdf20cc98" />
+
+
 ## 🚀 How It Works
 
 1. **Server Setup**: One person runs the server and waits for connections
