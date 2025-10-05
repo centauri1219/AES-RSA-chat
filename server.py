@@ -1,49 +1,47 @@
-# SERVER CODE
-# Update 1.1 AES Encryption Now Included :p
-# AES Block Cipher 16 bytes block size as supported by pyaes
-# You Can Change the Port Server Listens by passing argument in command line directly
-# Server Code To be Started before Client, or Connection will be refused
-# Author : xtreme.research@gmail.com
+#Run this before the client code!!
 
 import os
-import pyaes
-import sys
-import socket
-import threading
-import hashlib
-import json
-from datetime import datetime
+import pyaes#for aes enc / dec
 
-HOST = '0.0.0.0'
+import sys
+import socket#network
+import threading
+import hashlib#creatign hashes
+import json#data exchange
+from datetime import datetime#timestamps
+
+HOST = '0.0.0.0'#listen on all netwrok interfaces
 if(len(sys.argv)==1):
-    PORT = 5555
+    PORT = 5555#default
 elif(len(sys.argv)==2):
     PORT=int(sys.argv[1])
 
-print("[+] Server Running ")
-print("[+] Allowing All Incoming Connections ")
+print("Server Running ")
+print("Allowing All Incoming Connections ")
 print("[+] PORT "+str(PORT))
 print("[+] Waiting For Connection...")
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)#create socket
+s.bind((HOST, PORT))#associate socket with host
 s.listen(1)
 conn, addr = s.accept()
 print('[+] Connected by ', addr)
 
 key = str(input('[+] AES Pre-Shared-Key for the Connection : '))
 hashed = hashlib.sha256(key.encode()).digest()
-aes = pyaes.AES(hashed)
+aes = pyaes.AES(hashed)#cipherobject
 
 def verify_and_display(recv_dict):
     timestamp = recv_dict['timestamp']
     recv_hash = recv_dict['hash']
     message   = recv_dict['message']
     mess_hash = hashlib.sha256(str(message).encode('utf-8')).hexdigest()
-    SET_LEN = 80
+    SET_LEN = 80#jsut to make it look tabular
     if (mess_hash == recv_hash):
-        tag = str('☑')
+        tag = str('☑')#no tamper
     else:
+
+
         tag = str('☒')
     spaces = SET_LEN - len(str(message)) - len('Received : ') - 1
     if spaces > 0 :
@@ -51,7 +49,7 @@ def verify_and_display(recv_dict):
         sentence = 'Received : ' + str(message) + space + tag + '  ' + timestamp
         print(sentence)
 
-def process_bytes(bytess):
+def process_bytes(bytess):#splits received data into 16 byte chunks for decr
     ret = []
     while(len(bytess)>=16):
         if(len(bytess)>=16):
@@ -75,7 +73,7 @@ def process_text(data): #take data in as a string return 16 bytes block of bytes
         streams.append(stream_bytes)
     return streams
 
-class myThread(threading.Thread):
+class myThread(threading.Thread):#for multithreading
     def __init__(self,id):
         threading.Thread.__init__(self)
         self.threadID = id
@@ -109,9 +107,10 @@ class myThread(threading.Thread):
 
 
 Listening_Thread = myThread(1)
-Listening_Thread.daemon = True
+Listening_Thread.daemon = True#dies when main prog exits
 Listening_Thread.start()
 
+#msg sending pocess
 while 1:
     try:
         sending_data = str(input(""))
@@ -129,6 +128,8 @@ while 1:
         "message"   : sending_data,
         "hash"      : mess_hash
     }
+
+
     send_json_string = json.dumps(send_data)
     sending_bytes = process_text(send_json_string)
     enc_bytes = []

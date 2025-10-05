@@ -1,7 +1,4 @@
-# CLIENT CODE
-# Update 1.1 AES Encryption Now Included :p
-# AES Block Cipher 16 bytes block size as supported by pyaes
-# Server Code Must Be Running Before Starting Client or Connection will be refused
+
 
 import os
 import pyaes
