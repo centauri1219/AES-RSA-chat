@@ -42,8 +42,8 @@ pip install pyaes
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/centauri1219/AES-RSA-chat.git
-cd AES-RSA-chat
+git clone https://github.com/centauri1219/AES-chat.git
+cd AES-chat
 ```
 
 ### 2. Install Dependencies
@@ -90,10 +90,6 @@ python client.py
 - Both parties must use the exact same encryption key
 - This is for educational/demonstration purposes
 - Consider additional security measures for production use
-
-## 👨‍💻 Author
-
-**xtreme.research@gmail.com**
 
 ## 📄 License
 
